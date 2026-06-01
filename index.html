@@ -14,15 +14,15 @@
 <body>
 
 <header class="page-header">
-  <h1>What's Under the Skin?<br /><span class="subtitle">Estimating Swine Body Condition</span></h1>
+  <h1>What's Under the <span class="skin">Skin</span>?<br /><span class="subtitle">Estimating Swine Body Condition</span></h1>
 
   <ol class="authors">
-    <li><a href="mailto:basharmk@msu.edu">Mk Bashar</a><sup>1</sup></li>
+    <li><a href="https://iambashar.github.io/" target="_blank" rel="noopener">Mk Bashar</a><sup>1</sup></li>
     <li><a href="mailto:kbhatti2@nebraska.edu">Kuljit Bhatti</a><sup>2</sup></li>
-    <li><a href="mailto:gary.rohrer@usda.gov">Gary Rohrer</a><sup>3</sup></li>
+    <li><a href="https://scholar.google.com/citations?user=nrwauskAAAAJ" target="_blank" rel="noopener">Gary Rohrer</a><sup>3</sup></li>
     <li><a href="mailto:gemus@msu.edu">Madonna Benjamin</a><sup>4</sup></li>
-    <li><a href="mailto:tami.brownbrandl@unl.edu">Tami Brown-Brandl</a><sup>2</sup></li>
-    <li><a href="mailto:dmorris@msu.edu">Daniel Morris</a><sup>5</sup></li>
+    <li><a href="https://scholar.google.com/citations?user=53zMsIcAAAAJ" target="_blank" rel="noopener">Tami Brown-Brandl</a><sup>2</sup></li>
+    <li><a href="https://www.egr.msu.edu/smarts/faculty.html" target="_blank" rel="noopener">Daniel Morris</a><sup>5</sup></li>
   </ol>
 
   <ol class="affils">
@@ -30,12 +30,26 @@
     <li><sup>2</sup>Department of Biological Systems Engineering, University of Nebraska&ndash;Lincoln</li>
     <li><sup>3</sup>USDA Meat Animal Research Center</li>
     <li><sup>4</sup>College of Veterinary Medicine, Michigan State University</li>
-    <li><sup>5</sup>Department of Electrical and Computer Engineering, Michigan State University</li>
+    <li><sup>5</sup>Department of Biosystems and Agricultural Engineering, Michigan State University</li>
   </ol>
+
+  <p class="corresponding">
+    &lowast; Corresponding author(s):
+    <a href="mailto:basharmk@msu.edu">basharmk@msu.edu</a>,
+    <a href="mailto:dmorris@msu.edu">dmorris@msu.edu</a>
+  </p>
 
   <p class="venue">CV4Animals Workshop &middot; CVPR 2026</p>
 
   <nav class="badges">
+    <a href="pigformer_cvpr_poster.pdf" class="badge">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 7h10M7 11h10M7 15h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Poster
+    </a>
+    <a href="pigformer_slides.pdf" class="badge">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3V4Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 16v4M8 20h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Slides
+    </a>
     <a href="https://github.com/iambashar/Pigformer" class="badge">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.02c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.05 11.05 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.41.35.78 1.05.78 2.11v3.13c0 .3.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5Z"/></svg>
       Code
@@ -49,18 +63,42 @@
 
 <main>
 
-<section id="pipeline">
-  <figure>
-    <img src="pipeline.png" alt="PigFormer two-stage pipeline: ceiling-mounted depth camera → Stage 1 geometric front-end (SAM3-to-MaskDINO segmentation + ground-plane removal + orientation normalization) → 96×224 height map → Stage 2 Slice Attention Encoder regressing fat, loin, and total tissue depth at the last rib." />
-    <figcaption>
-      Two-stage pipeline. A ceiling-mounted depth camera captures raw frames.
-      <b>Stage 1</b> (geometric front-end) segments the pig, removes the ground
-      plane, and rotates the height map so each pig faces right. <b>Stage 2</b>
-      (Slice Attention Encoder) tokenizes the 224 cross-sectional slices of the
-      height map and regresses backfat, loin muscle, and total tissue depth at
-      the last rib.
-    </figcaption>
-  </figure>
+<section id="setup">
+  <div class="figure-trio">
+    <figure>
+      <img src="Hallway.png" alt="A pig walking through a sorting hallway with a single RGB-D camera mounted on the ceiling overhead, looking straight down." />
+      <figcaption><b>Capture setup.</b> A single RGB-D camera looks straight down over a sorting hallway the pigs already walk through &mdash; no restraint, no extra handling.</figcaption>
+    </figure>
+    <figure>
+      <img src="pigwalk.gif" alt="Top-down view of a pig walking under the camera: synchronized color frame on the left and colorized depth frame on the right." />
+      <figcaption><b>Model input.</b> As the animal passes underneath, the camera records synchronized color and depth. Only the <b>depth</b> stream is used at inference.</figcaption>
+    </figure>
+    <figure>
+      <img src="annotatedultrasound.png" alt="B-mode ultrasound image at the last rib with the skin-fat interface, fat-loin interface, and last rib annotated." />
+      <figcaption><b>Ground truth.</b> Slaughter-lab ultrasound at the 12th rib gives the backfat and loin-depth labels the model is trained to predict.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="highlights">
+  <ul class="highlight-grid">
+    <li>
+      <span class="hl-num">3.87&nbsp;mm</span>
+      <span class="hl-label">overall test MAE across fat, loin, and total tissue depth</span>
+    </li>
+    <li>
+      <span class="hl-num">2.43&nbsp;mm</span>
+      <span class="hl-label">backfat MAE &mdash; approaching the ultrasound operator standard</span>
+    </li>
+    <li>
+      <span class="hl-num">&asymp;&nbsp;7&nbsp;ms</span>
+      <span class="hl-label">end-to-end inference / frame on a single A100 with the UNet front-end</span>
+    </li>
+    <li>
+      <span class="hl-num">319</span>
+      <span class="hl-label">sow &amp; gilt instances (6,705 frames) from two independent facilities</span>
+    </li>
+  </ul>
 </section>
 
 <section id="abstract">
@@ -86,6 +124,65 @@
     overall MAE. It outperforms strong single-stage ResNet-18 and ViT-small
     baselines that feed raw depth directly to a pretrained backbone,
     isolating the contribution of Stage 1.
+  </p>
+</section>
+
+<section id="method">
+  <h2>Method</h2>
+  <figure id="pipeline">
+    <img src="pipeline.png" alt="PigFormer two-stage pipeline: ceiling-mounted depth camera → Stage 1 geometric front-end (SAM3-to-MaskDINO segmentation + ground-plane removal + orientation normalization) → 96×224 height map → Stage 2 Slice Attention Encoder regressing fat, loin, and total tissue depth at the last rib." />
+    <figcaption>
+      The two-stage pipeline. A ceiling-mounted depth camera captures raw
+      frames. <b>Stage 1</b> (geometric front-end) segments the pig, removes
+      the ground plane, and rotates the height map so each pig faces right.
+      <b>Stage 2</b> (Slice Attention Encoder) tokenizes the 224
+      cross-sectional slices of the height map and regresses backfat, loin
+      muscle, and total tissue depth at the last rib.
+    </figcaption>
+  </figure>
+  <div class="method-grid">
+    <div class="method-card">
+      <span class="stage-tag">Stage 1</span>
+      <h3>Geometric front-end</h3>
+      <p>
+        Raw depth frames are turned into a canonical <b>96&nbsp;&times;&nbsp;224
+        height map</b>. A depth-only MaskDINO segmenter &mdash; distilled from
+        SAM3-on-RGB pseudo-labels so it needs no color or text prompt at
+        deployment &mdash; isolates the pig. RANSAC removes the ground plane,
+        and a minimum-area-rectangle long axis rotates every animal to face
+        right. The result is a metric, top-down height image that is
+        invariant to where the pig stood under the camera.
+      </p>
+    </div>
+    <div class="method-card">
+      <span class="stage-tag">Stage 2</span>
+      <h3>Slice Attention Encoder</h3>
+      <p>
+        The height map is read as a sequence of <b>224 cross-sectional
+        slices</b> along the spine, each a 96-d token. A single RoPE
+        transformer encoder layer (8 heads) relates slices along the full
+        dorsal surface; a concatenated <b>mean&nbsp;+&nbsp;max</b> pool feeds
+        a small MLP head that regresses backfat, loin, and total tissue depth
+        at the last rib. One layer is optimal at this data scale &mdash;
+        deeper encoders overfit.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="dataset">
+  <h2>Dataset</h2>
+  <p>
+    PigFormer is trained and evaluated on a multi-site collection of
+    <b>319 sow and gilt instances</b> (6,705 depth frames) recorded with
+    ceiling-mounted Azure Kinect / Orbbec cameras at <b>two independent
+    facilities</b> &mdash; Michigan State University (116 instances) and the
+    University of Nebraska&ndash;Lincoln (203 instances). Ground-truth
+    backfat and loin depths come from slaughter-lab ultrasound at the 12th
+    rib. Splits are made at the <b>animal level</b>: roughly 20% of unique
+    IDs are held out as a fixed test set and the remainder is divided into
+    four cross-validation folds, so no animal ever appears in more than one
+    split.
   </p>
 </section>
 
@@ -174,6 +271,32 @@
   </p>
 </section>
 
+<section id="interpretability">
+  <h2>What does the model look at?</h2>
+  <p class="caption-prose">
+    A natural worry is that PigFormer simply regresses global statistics
+    &mdash; body volume or mean height &mdash; rather than reading local
+    anatomy. We test this with a SmoothGrad&nbsp;&times;&nbsp;Input
+    attribution summed per spine column, normalized, and averaged over all
+    79 test animals in shared body coordinates.
+  </p>
+  <figure class="saliency-figure">
+    <img src="saliency_curve.png" alt="Population attribution curve over relative body position from tail (0) to head (1), showing a tail-rump peak near 0.1 and a broad rib-shoulder plateau from 0.4 to 0.9, with the anatomical last rib marked at 0.4. Curves for fat, loin, and total share the same shape." />
+    <figcaption>
+      The aggregate importance curve is strongly <b>non-uniform</b> &mdash;
+      a sharp tail/rump peak (rel.&nbsp;&asymp;&nbsp;0.1) and a broad
+      rib&ndash;shoulder plateau (rel.&nbsp;0.4&ndash;0.9), with the
+      anatomical last rib (dashed) on the plateau's rising edge. A
+      global-statistic regressor would produce a flat curve. To pin this
+      down quantitatively, a ridge regressor on four global features (mean
+      height, body volume, area, max height) reaches only 9.13&nbsp;mm MAE
+      &mdash; 2.3&times; worse than PigFormer &mdash; confirming the encoder
+      localizes to anatomically meaningful structure even with a single
+      transformer layer.
+    </figcaption>
+  </figure>
+</section>
+
 <section id="bibtex">
   <h2>Citation</h2>
   <div class="bibtex">
@@ -195,7 +318,7 @@
 <footer>
   <p>
     &copy; 2026 The Authors &middot;
-    Code released under the MIT License &middot;
+    Code released under the GNU GPLv3 License &middot;
     <a href="https://github.com/iambashar/Pigformer">github.com/iambashar/Pigformer</a>
   </p>
 </footer>

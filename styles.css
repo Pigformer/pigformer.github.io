@@ -39,6 +39,15 @@ h2 {
   margin: 0 0 1.25rem;
   color: #161a1f;
 }
+.page-header h1 .skin {
+  color: #e59a86;                       /* fallback if the image fails to load */
+  background-image: url("skin_texture.png");
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* let the texture show through the glyphs */
+}
 .page-header .subtitle {
   font-weight: 500;
   font-size: 1.6rem;
@@ -66,6 +75,12 @@ h2 {
   gap: .15rem 1rem;
 }
 .affils sup { color: #888; margin-right: 2px; }
+
+.corresponding {
+  margin: .5rem auto 0;
+  font-size: .85rem;
+  color: #5a5a5a;
+}
 
 .venue {
   margin: 1.25rem 0 1.5rem;
@@ -98,8 +113,102 @@ h2 {
 .badge:hover { background: #2a2f37; transform: translateY(-1px); }
 .badge svg { width: 18px; height: 18px; fill: currentColor; }
 
+/* ---------- Highlights ---------- */
+#highlights { margin-top: 2.5rem; }
+.highlight-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.highlight-grid li {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding: 1.1rem 1rem;
+  background: #fff;
+  border: 1px solid #e6e4dd;
+  border-radius: 8px;
+  text-align: center;
+}
+.hl-num {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #1f5fb3;
+  line-height: 1.1;
+}
+.hl-label { font-size: .82rem; color: #555; line-height: 1.4; }
+
+/* ---------- Method ---------- */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+.method-card {
+  background: #fff;
+  border: 1px solid #e6e4dd;
+  border-radius: 8px;
+  padding: 1.25rem 1.4rem;
+}
+.method-card h3 {
+  margin: .5rem 0 .6rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.method-card p { margin: 0; font-size: .92rem; color: #333; text-align: justify; }
+.stage-tag {
+  display: inline-block;
+  padding: .15rem .6rem;
+  background: #161a1f;
+  color: #fafaf9;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Dataset ---------- */
+#dataset p { text-align: justify; }
+
+/* ---------- Interpretability figure ---------- */
+.saliency-figure { margin: 1.25rem 0 0; }
+.saliency-figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #e6e4dd;
+}
+
+/* ---------- Data-collection trio ---------- */
+#setup { margin-top: 2.5rem; }
+.figure-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.figure-trio figure { margin: 0; }
+.figure-trio img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #e6e4dd;
+}
+.figure-trio figcaption {
+  margin-top: .6rem;
+  font-size: .82rem;
+  text-align: left;
+}
+
 /* ---------- Pipeline figure ---------- */
-#pipeline figure { margin: 0; }
+#pipeline { margin: 0 0 1.5rem; }
 #pipeline img {
   width: 100%;
   height: auto;
@@ -224,4 +333,8 @@ footer a { color: #555; }
   table.results { font-size: .85rem; }
   table.results th, table.results td { padding: .45rem .55rem; }
   section { margin: 2.5rem 0; }
+  .highlight-grid { grid-template-columns: repeat(2, 1fr); }
+  .method-grid { grid-template-columns: 1fr; }
+  .figure-trio { grid-template-columns: 1fr; }
+  .figure-trio img { height: auto; }
 }
