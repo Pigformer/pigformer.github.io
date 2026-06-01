@@ -65,8 +65,8 @@ h2 {
   max-width: 800px;
 }
 .authors { font-size: 1.05rem; }
-.authors a { color: #1c1f24; }
-.authors a:hover { color: #1f5fb3; }
+.authors a { color: #1f5fb3; }
+.authors a:hover { color: #16447f; text-decoration: underline; }
 .authors sup { font-size: .7em; color: #888; margin-left: 1px; }
 
 .affils {
